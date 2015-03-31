@@ -1,0 +1,1564 @@
+
+
+Number of exercise:
+2.1
+let  ult x = let y = abs x in  y/10 mod 10,y mod 10;;
+
+2.2
+let rec bello x= if x < 9 && x >= 0 then match x with 
+0|3|7 ->true | _-> false
+else let (ult,pen) = ult x in bello (ult) &&  not (bello (pen));;
+
+2.2 (Another method)
+let rec bello x= if x < 9 then match x with 
+0|3|7 ->true | _-> false
+else bello (x mod 10) &&  not(bello ( x/10 mod 10));;
+
+2.2 (Another method)
+let primero x =if x < 10 then 
+	match x with 0 -> true |  else false;;
+
+
+2.2 (Another method)
+let bel x = if x < 10 then 
+	match x with 0 -> true | 3 -> true
+	else (x mod 10 =0 || x mod 10=3 )&&
+let y = x /10 mod 10 in y !=0 &&  y!=3 ;;
+
+
+2.2  (Another method)
+let bel x = if (primero x) then true else
+	 (x mod 10 =0 || x mod 10=3 )&&
+let y = x /10 mod 10 in y !=0 &&  y!=3;;
+
+2.2  (Another method)
+let primero x =if x < 10 then 
+	match x with 0 -> true | 3 -> true else false;;
+let bel x = if not (primero x) then
+	 (x mod 10 =0 || x mod 10=3 )&&
+let y = x /10 mod 10 in y !=0 &&  y!=3 else false;;
+
+2.3
+let data (x ,y) = 
+	x > 0 &&
+	 match y with 
+		"dicembre" | "gennaio" ->  x<=31   
+		|"settembre" | "novembre" -> x<=30
+ 		 | "febraio" ->  x<=28
+		  | _ ->false;;
+
+2.3  (Another method)
+let ps x y = x > 0 && match y with "dicembre" | "gennaio" -> true   && x<=31  | 
+ "settembre" | "novembre" -> true && x<=30 | "febraio" -> true && x<=28 | _ ->false;;
+val ps : int -> string -> bool = <fun>
+
+2.3 (Another method)
+let p (x,y) = if x = 31 then match y with "dicembre" | "gennaio" -> true | _ ->false  
+			  else if x = 30 then match y with "setembre" | "novembre" -> true | _ ->false 
+					else if x=28 then match y with "febraio" -> true | _ -> false else false;;	
+
+PDF Number 3 Theory: 
+*	let () = print_string "type a number: " in
+     let i = read_int () in 
+		if i = n then 
+		 let () = print_string "BRAVO"  
+         in 0
+       else 
+           1 + hilo n ;;
+*let num c = c >= '0' && c <= '9';;
+
+
+let rec pos (str,i) = if not(num str.[i])
+	then i
+	else pos(str,i+1);;
+	
+
+let nx x =  String.sub x 0 (pos(x,0));;
+let nx2 x =  String.sub x 0 (pos(x,0)),String.sub x (pos(x,0)+1) (pos(x,((pos(x,0)))));;
+let ny y =  let x = (pos(y,0)) in String.sub y (x+1) (pos(y,(x)));;
+let sum x = let z,y = nx x in int_of_string z + int_of_string y;;
+let resta x = let z,y = nx x in int_of_string z - int_of_string y;;
+
+exception BadOperation
+let operation x =  match x.[pos(x,0)] with '+' -> sum x | '-' -> 1 | _ -> raise BadOperation;;
+
+let rec ciclo n m =
+  if n>m then ()
+  else (print_int n;    (* sequenza di comandi *)
+	print_newline();
+	ciclo (n+1) m);;
+
+let rec d n m = if n> m then () else (print_int n; d (n+1) m);;
+ 
+print 1 a N
+let rec f n =  let rec aux i = try if i>n then () else (print_int i; aux (i+1))   with _ -> () in aux 1;;
+
+let rec c()  = let x =
+			 read_line () in if x= "." 
+								then 0 
+								else  (int_of_string x) + c();;
+
+let rec s2() = 
+try
+ let n = int_of_string  (read_line ()) 
+ in n + s2() 
+with _ -> 0;;
+
+let rec l () = let rec aux i y= try let x  = read_int() in aux (i+1) (y+x)
+ with _ -> i, y
+in aux 0 0 ;;
+
+let  loop () =
+ let rec aux (i, x) = 
+	try let s = read_int() 
+ in aux  ((i+1), (s+x))
+	with _ -> ( i, x)
+in aux (0,0);;
+
+esercizio 3.1
+exception BadOperation
+let rec o ((x,t), (z,v)) =
+  let (j,f)= (x+z), (t+v) 
+   in if x >23 || z > 23 || t > 59 || v > 59
+		 then raise  BadOperation 
+		 else 
+			let (k,l)= (j,f) 
+			in 
+				if l> 59
+				 then  ((k+1) mod 24,l mod 60) 
+				 else (k mod 24, l);;
+
+función que cuenta hasta encontrar  punto
+let rec f() = 
+try 
+ 	let rec s = read_int()
+	in s+f()
+with _ ->0;;
+
+(another form:)
+let rec f() = 
+try 
+ 	let  s = read_int()
+	in 
+		let suma = f()
+		in s+suma
+with _ ->0;;
+
+let rec l() =
+  try
+    let rec x = read_int() 
+    in
+      let soma=l() 
+      in (soma+x)
+   with _ -> 0;;
+
+let rec l() = 
+ let rec aux i = 
+   try 
+     let x = read_int()
+	  in aux (x+i)
+   with _ -> i
+ in aux 0;;
+
+esercizio 3.2a
+let rec f() =
+ try
+	let n = read_int()
+	in
+	  try
+		 max n (f()) 
+	  with _ -> n
+ with _ -> failwith "error";;
+
+exception Error
+let rec read_max() = 
+try 
+	let rec aux n =
+		try let r= read_int() 
+			in max n (aux r)
+		with _ -> n
+	in aux (read_int())
+with _ -> raise Error;;
+
+
+esercizio 3.2b
+exception Error
+let read_max_min() = 
+ try
+	let rec aux (ma,mi) = 
+	  try 
+		let
+ 			s= read_int() 
+		in aux ((max s ma), (min s mi))
+	  with _ -> (ma,mi)
+    in 
+	  let a= read_int() 
+	  in aux (a,a)
+ with _ -> raise Error;;
+
+esercizio 3 2c
+let rec t x =
+ try
+	let rec calc =  x < read_int()  
+	in   ( t x && calc)
+ with _ -> true;;
+ 
+ let  m x = 
+try 
+	let s = read_int() 	
+	in  m (read_int()) && s< x 
+with _ -> true;;
+ 
+ 
+Esercizio 3 2d
+let rec occorre x = 
+	try 
+		let rec m = read_int()
+		in occorre x || x = m
+	with _ -> false;;
+
+esercizio 3 2e
+(*si tail recursivo:*)
+let rec s() =
+	let rec aux i =
+	 	let s = read_line() 
+		in if s= ""
+			 then  i 
+			 else (aux i) + 1 
+	in aux 0	;;
+ 
+let s()= 
+	let rec aux i = 
+		if read_line() = "" 
+			then i 
+			else  aux (i+1) 
+	in aux 0;;
+
+(*non tail recursivo:*)
+
+let s()= 
+		if read_line() = "" 
+			then 0 
+			else s() + 1 ;;
+
+let rec num_di_stringhe () =
+  match read_line() with
+    "" -> 0
+  | _ -> 1 + num_di_stringhe()
+  
+  
+  
+  let s()= 
+	match read_line() 
+	with
+		 "" -> 0
+		| _ -> s()+1;;
+  
+
+3 2f 
+let stringa_max() =
+	let rec massima str =
+		let s = read_line()
+		in
+		match s with
+			"" -> str
+		|	_ ->
+				if String.length s > String.length str then
+					massima s
+				else
+					massima str
+	
+	in
+	massima ""
+
+
+esercizio 3 3a
+let sb n m = 
+	let rec aux i = 
+		let x=  i in if x=m then i else  i + aux (i+1)
+	in aux n;;
+
+let rec sb n m = 
+	if n > m then m
+			 else  n + sb (n+1) m;;
+
+let rec sb x y = 
+	match 
+		(x / y) with 1 -> y 
+		| _ -> x + sb (x+1) y;;
+
+esercizio 3 3b
+ let rec sum x =
+	let rec aux i =
+		 if i =x then i
+		 		else i + aux(i+1)
+	in aux 0;;
+
+let rec sum x =
+	match x with 
+		0 -> x
+		| _ -> x + sum (x-1);;
+
+esercizio 3 3c
+(*tail recursivo*)
+let p x y = 
+
+ let rec aux n i =
+	 if i = y
+		 then n
+		 else aux (x*n) (i+1) 
+ in aux x 1;;
+(* non tail recursivo*)
+
+let rec p x y = 
+  if y=0 then x else x * p x (y-1);;
+
+
+esercizio 3 3d;
+let rec fib n = 	
+	match n with
+		0 -> 0 
+	|	1 -> 1
+	|	_ -> fib(n-1) + fib (n-2);;
+
+
+esercizio 3 3e
+exception Errr
+let m s = 
+	match s with
+	"" -> raise Errr
+	| _ ->  
+				let rec aux max i = 
+					try
+						 if s.[i] > max 
+								then aux s.[i] (i+1) 
+								else aux max (i+1) 		
+					with _ -> max 
+				in aux '0' 0;;
+
+let m s = 
+	match s with
+	"" -> failwith "Stringa vuota"
+	| _ ->  
+				let rec aux max i = 
+					try
+						 if s.[i] > max 
+								then aux s.[i] (i+1) 
+								else aux max (i+1) 		
+					with _ -> max 
+				in aux '0' 0;;
+
+let maxstring s =
+  (*  aux : char -> int -> char *)
+  let rec aux maxchar i =
+    (* ciclo di scansione della stringa: maxchar e' il massimo carattere
+       incontrato fino a questo punto, i e' la posizione del carattere 
+       da considerare *)
+    try
+      aux (max maxchar s.[i]) (i+1)
+    with _ -> (* stringa terminata *)
+	maxchar
+  in (* consideriamo anche il caso della stringa vuota *)
+  try aux s.[0] 1
+   (* inizializzazione del ciclo con il carattere in posizione 0,
+      iniziando dal successivo *)
+  with _ -> failwith "Stringa vuota"
+
+esercizio 4 1a
+(*non interagivo oppure non tali ricorsivi:*)
+let rec length = function
+    [] -> 0
+  | _::rest -> 1+length rest
+
+let rec length list = 
+	let rec calc list result  = match list with
+		[] -> result
+  		| x::rest ->   calc rest (result+1) 
+	in calc list 0;;
+
+
+let rec length list  = 
+	let rec calc result  = function
+		[] -> result
+  		| x::rest ->   calc (result+1) rest
+	in calc 0 list;;
+
+let rec length  = 
+	let rec calc result  = function
+		[] -> result
+  		| x::rest ->   calc (result+1) rest
+	in calc 0;;
+
+esercizio 4 1b
+(*non interagiva oppure non tali ricorsive:*)
+let s list = 
+let rec s = function
+	[] -> 0
+	| x::rest -> x + s rest;;
+
+tail ricorsive:
+	let rec aux list sum =
+		match list with
+			[] -> sum
+			| x::rest ->  aux rest (sum+x ) 
+	in aux list 0;;
+	
+	let s  = 
+	let rec aux sum = function
+			[] -> sum
+			| x::rest ->  aux (sum+x ) rest
+	in aux 0;;
+
+esercizio 4 1c
+(*tail recursivo*)
+let maxlist = 
+		let rec aux max =
+			 function
+				[] ->max
+				| x::rest -> if x> max then aux x rest else aux max rest
+		in aux 0;;
+		
+		let m  list = 
+		let rec aux max  =
+			 function
+				[] ->max
+				| x::rest -> if x> max then aux x rest else aux max rest
+		in aux 0 list;;
+		
+let m  list = 
+		let rec aux max list  =
+			 match list with
+				[] ->max
+				| x::rest -> if x> max 
+										then aux x rest
+										else aux max rest
+		in aux 0 list ;;
+		
+let m  list = 
+		match list with
+				[] ->0
+				| x::rest -> if x> m rest then x else m list 
+		;;
+
+(*non tali ricorsivi o iterativi*):
+let rec m  = 
+		function
+				[] ->0
+				| x::rest -> 
+					if x > m rest 
+						then x 
+						else m rest;
+
+let rec m  = 
+		function
+				[] ->0
+				| x::rest -> max x (m rest);;
+
+esercizio 4 1d
+(*tutti tali ricorsive*)
+let rec take n = function
+    [] -> []
+  | x::rest -> 
+      if n<=0 then []
+      else x::(take (n-1) rest);;
+ 
+ let drop n list= 	
+	let rec aux cont list = 
+		match list with
+			[]-> []
+			| x::rest -> if cont =n 
+								 then rest 
+								 else aux (cont+1) rest
+	in aux 1 list;;
+
+let d n list= 	
+	let rec aux cont list = 
+		match list with
+			[]-> []
+			| x::rest -> if cont =n 
+								 then rest 
+								 else aux (cont+1) rest
+	in aux 1 list;;
+	
+	let d n list = 	
+		let rec aux cont = function 
+			[]-> []
+			| x::rest -> if cont = n 
+								 then rest
+								 else aux (cont+1) rest
+	in aux 1 list;;
+
+let rec d n = function 			
+			[]-> failwith "Vuota"
+			| _::rest -> if n=1
+							then rest
+							else d (n-1) rest;;
+(*con as*):
+let rec d n = function 			
+			[]-> failwith “vuota"
+			| _::rest as l1 -> if n=1
+											then rest
+											else d (n-1) l1;;
+
+esercizio 4 1e
+(*non tail:*)
+let rec append lst1  lst2 =
+  match lst1 with 
+    [] -> lst2
+  | x::rest -> x::append rest lst2
+
+esercizio 4 1f
+(*non tail*)
+let rec  re list = 
+	match list with
+		 [] -> []
+		 | x::rest ->  (re rest) @[x]
+;;
+ (*SI TAIL*):
+let r l1 = 
+		let rec aux l1 l2 =
+			match l1 with
+				[] ->l2
+				| x::rest -> aux rest (x::l2)
+		in aux l1 []
+;;
+
+esercizio 4 1g
+tail:
+exception Negativo
+ let nt n list = 
+	if n < 0 
+		then raise Negativo
+		else 
+			let rec aux cont = function
+				[] -> failwith "non contiene"
+				| x::rest -> if cont = n 
+								then [x] 
+								else aux (cont+1) rest
+			in aux 0 list 
+;;
+
+exception Negativo
+ let nt n list = 
+	if n < 0 
+		then raise Negativo
+		else 
+			let rec aux cont li= match li with
+				[] -> failwith "non contiene"
+				| x::rest -> if cont = n 
+								then [x] 
+								else aux (cont+1) rest
+			in aux 0 list 
+;;
+
+esercizio 4 1e
+tail:
+let r x l1=
+	let rec aux l2 =
+		function
+			[] -> l2
+			| y::rest -> if x = y
+							then aux l2 rest
+							else aux (l2@[y]) rest
+	in aux [] l1
+;;
+
+let r x l1=
+	let rec aux l2 l1 =
+		match l1 with
+			[] -> l2
+			| y::rest -> if x = y
+							then aux l2 rest
+							else aux (l2@[y]) rest
+	in aux [] l1
+;;
+
+(*version mas optima ya q el @ usa tiempo
+cuadratico, el List.rev es lineal:*)
+let r x l1=
+	let rec aux l2 =
+		function
+			[] -> List.rev l2
+			| y::rest -> if x = y
+							then aux l2 rest
+							else aux (y::l2) rest
+	in aux [] l1
+;;
+
+non tail , non recursive:
+let rec r x l1=
+		match l1 with
+			[] -> []
+			| y::rest -> if x = y
+							then r x rest
+							else [y] @ r x (rest) 
+;;
+
+esercizio 4 2a
+(* versione iterativa, o tail recursive *)
+let  co n x = 		
+	let rec aux lis cont =
+		match lis with _-> if cont = n 
+							 then lis
+							 else aux (x::lis) (cont+1) 
+	in aux [x] 1
+;;
+
+let  co2 n x = 		
+	let rec aux lis cont =
+		function _-> if cont = n 
+							 then lis
+							 else aux (x::lis) (cont+1) []
+	in aux [x] 1 []
+;;
+
+(* versione non tail recursive *)
+let rec co3 n x = 		
+		if n=0 
+			then []
+			else x:: co3 (n-1) x
+;;
+
+esercizio 4 2b 
+(* versione iterativa, o tail recursive *)
+let rec nd  = 
+	function
+		[]|[_]  -> true
+		| x::y::rest -> if x <y 
+						then true && nd (y::rest)  
+						else false ;;
+
+
+let rec nd  = 
+	function
+		[]|[_]  -> true
+		| x::y::rest ->  x <y  && nd (y::rest) ;;
+
+esercizio 4 2c
+(* versione non tail recursive *)
+let rec p y =
+	function 
+		[] -> []
+		| x::rest -> (y,x):: p y rest
+;;
+
+(* versione iterativa, o tail recursive *)
+let p y l1 =
+	let rec aux l2 = 	
+		function 
+			[] -> l2
+			| x::rest -> (y,x):: aux l2 rest
+	in aux [] l1
+;;
+
+esercizio 4 2d
+(* versione non tail recursive *)
+let rec d =
+	function 
+		[]-> []
+		| x::rest ->x::x:: (d rest)
+;;
+
+(* versione iterativa, o tail recursive *)
+let f l= 
+	let rec aux l2 =	
+		function	
+			[]-> l2
+			|x::rest -> x::x::aux l2 rest
+	in aux [] l
+;;
+
+esercizio 4 2e
+iterativa o tail recursive:
+let enu l=
+	let rec aux cont l2 =
+		function
+			[]->l2
+			|x::rest -> (cont,x):: aux (cont+1) l2 															rest
+	in  aux 0 [] l
+;;
+
+esercizio 4 2f
+(* versione iterativa o tail ricorsiva*)
+let rec pos x lst = 
+	let rec aux cont = 
+		function
+			[] -> failwith "non esiste"
+			| y::rest -> if x=y 
+							then cont
+							else aux (cont+1) rest
+	in aux 0 lst
+;;
+
+(* non tail ricorsive*(
+let rec pos x = function
+    [] -> failwith "position"
+  	| y::rest -> if x=y
+  					 then 0
+  					  else 1 + pos x rest;;
+
+esercizio 4 2g
+(* tail ricorsive*)
+(*questo e più ottimo perché non usa el 	@ = concatenazione*)
+let al lst= 
+	let rec aux cont l2 =
+		function 
+			[] -> List.rev l2
+			| x::rest -> if (cont mod 2 = 1 )
+							then aux (cont+1) (x::l2) rest
+							else aux (cont+1) l2 rest 
+	in aux 0 [] lst
+;;
+
+let al lst= 
+	let rec aux cont l2 =
+		function 
+			[] ->l2
+			| x::rest -> if (cont mod 2 = 1 )
+							then aux (cont+1) (l2 @ [x]) rest
+							else aux (cont+1) l2 rest 
+	in aux 0 [] lst
+;;
+
+esercizio 4 2h
+ let  mi l1= 
+	let rec aux l2 l3=
+		match l3 with
+			[] ->  List.hd (minl l2)
+			| lis::rest -> aux  (maxl lis::l2) rest
+	in aux [] l1
+;;
+
+(*non tail*)
+let rec maxl3 =
+	function 
+			[]-> []
+			|[x]->x
+			|x::y::rest -> if x >y then maxl3 (x::rest) else maxl3 (y::rest)
+;;
+
+let rec maxl3 =
+	function 
+			[]-> []
+			|[x]->x
+			|x::y::rest -> maxl3 (max x y::rest)
+;;
+
+(*si tail*)
+let maxl l= 
+	let rec aux l2 n=
+		match l2 with
+			[]->[n]
+			|x::rest -> aux rest (max n x)
+	in match l with
+		[] ->[]
+		| y::res-> aux l y
+;;
+
+let minl2 l= 
+	let rec aux l2 n=
+		match l2 with
+			[]-> n
+			|x::rest -> if x < n then aux rest x else aux rest n
+	in match l with
+		[] ->[]
+		| y::res-> aux l y
+;;
+
+let minl l= 
+	let rec aux l2 n=
+		match l2 with
+			[]-> n
+			|x::rest -> aux rest (min n x)
+	in match l with
+		[] ->[]
+		| y::res-> aux l y
+;;
+
+calling: mi [[1;2];[11;22];[111;222]];;
+
+esercizio 4 2i
+let rec sp lst= 
+	let cont =
+	 	(List.length lst ) / 2
+	in let (l2, l3 ) = 
+			(take cont lst, drop cont lst)
+	   in (l2,l3)
+;;
+
+let rec sp lst= 
+	let cont =
+	 	(List.length lst ) / 2
+	in (take cont lst, drop cont lst)
+;;
+
+
+esercizio 5 1a
+filter:
+tail:
+let in_labirinto dim (r,c) =
+  r >= 0 && c >= 0 && r < dim && c < dim;;
+
+let filter 	dim list = 
+	let rec aux listN=
+		function
+			[]-> listN
+			| casella::rest -> if in_labirinto dim casella 
+								then aux  (casella::listN) rest
+								else aux  listN rest
+	in aux [] list
+;;
+
+calling: filter 11 [(1,1);(111,111);(111,11);(11,111)];;
+raccolti
+(*  add_content : ('a * 'b list) list -> 'b -> 'a list -> 'a list *)
+let rec add_content contenuti c lista =
+  match contenuti with
+    [] -> lista
+  | (x,caselle)::rest ->
+      if List.mem c caselle then x::lista
+      else add_content rest c lista 
+
+let  raccolti contenuti listCaselle = 
+	let rec aux listN = 
+		function
+			[]-> listN
+			|  casella::rest ->  
+					aux (add_content contenuti casella listN) rest
+	in aux [] listCaselle
+;;
+
+
+esercizio 5 1b
+let com l1 l2=
+	if not (List.length l1  =  List.length l2)   
+		then failwith "error"
+		else let rec aux l1 l2 result =
+				match (l1, l2) with 	
+				([],[])-> result
+				| x::rest1,y::rest2 -> aux rest1 rest2  ( result @ [(x,y)])
+			in aux l1 l2 ([])
+;;
+
+let com l1 l2=
+	if not (List.length l1  =  List.length l2)   
+		then failwith "error"
+		else let rec aux l1 l2 result =
+				match (l1, l2) with 	
+				 ([],[])-> List.rev result
+				| x::rest1,y::rest2 -> aux rest1 rest2  ( (x,y)::result)
+			in aux l1 l2 ([])
+;;
+
+esercizio 5 1c
+let sp l =
+	let rec aux l1 l2= 	
+		function 
+				[]-> (List.rev l1,l2)
+				| (x,y)::rest ->  aux (x::l1) ([y]@l2) rest
+	in aux [] [] l
+;;
+
+(*non tail non iterative*)
+let rec spr  =
+	
+	function
+				[]-> ([],[])
+				| (x,y)::rest -> let (l1,l2) =  spr rest in (x::l1,y::l2)
+;;
+
+esercizio 5 1d
+(*tail recorsive o iterative*)
+lenta:
+(*tail recorsive o iterative*)
+let can2 a l= 
+	let rec aux result =
+		function
+			[]-> result
+			|(x,y)::rest -> if (a =x || a=y )
+								then aux  result rest
+								else aux  (result@[(x,y)]) rest
+	in aux [] l 
+;;
+
+veloce:
+let can a l= 
+	let rec aux result =
+		function
+			[]-> List.rev result
+			|(x,y)::rest -> if (a =x || a=y )
+								then aux  result rest
+								else aux  ((x,y)::result) rest
+	in aux [] l 
+;;
+
+let rec canR a = 
+		function
+			[]->result
+			|(x,y)::rest -> if (a =x || a=y )
+								then  result rest
+								else  ((x,y)::result) rest 
+;;
+
+let rec canR a = 
+		function
+			[]->[]
+			|(x,y)::rest -> if (a =x || a=y )
+								then  canR a rest
+								else  (x,y)::canR a rest
+;;
+
+calling:  canR 'a' [('a','b'); ('c','d'); ('e','f')];;
+
+esercizio 5 2
+union 
+let rec un l1 l2 =
+		match l1 with
+			[]->l2
+			| x::rest -> x:: (un rest l2)
+	
+;;
+
+let rec un l1 l2 =
+		match l1 with
+			[]->l2
+			| x::rest -> if List.mem x l2 
+							then un rest l2
+							else x:: (un rest l2)
+	
+;;
+
+(*tail:*)
+let unt l11 l22 = 
+	let rec aux l1 l2 ln =
+		match l1 with
+			[]->  ln
+			| x::rest -> if List.mem x ln
+							then aux rest l2 ln
+							else aux rest l2 (x::ln)
+ 	in aux l11 l22 l22
+;;
+
+let unt l11 l22 = 
+	let rec aux l1 l2 =
+		match l1 with
+			[]-> l2
+			| x::rest -> if List.mem x l2
+							then aux rest l2
+							else aux rest (x::l2)
+ 	in aux l11 l22
+;;
+
+Calling: un [1;2][1;4];;
+
+intersection:
+let inte l11 l22 = 
+	let rec aux l1 l2 ln =
+		match l1 with
+			[]-> ln
+			| x::rest -> if List.mem x l2
+							then if List.mem x ln 
+									then aux rest l2 ln 
+									else aux rest l2 (x::ln)			
+							else aux rest l2 ln
+ 	in aux l11 l22 []
+;;
+
+let rec intersect set = function
+    [] -> []
+  | x::rest ->
+      if List.mem x set then x::intersect set rest
+      else intersect set rest
+
+diferenza
+let dif l1 l2 = 
+	let rec aux ln =
+		function
+			[] ->ln
+			|x::rest -> if List.mem x l2 
+							then aux ln rest
+							else aux (x::ln) rest
+	in aux [] l1
+;;
+
+let dif l1 l2 = 
+	let rec aux l1 ln =
+		match l1 with
+			[] ->ln
+			|x::rest -> if List.mem x l2 
+							then aux rest ln 
+							else aux rest (x::ln) 
+	in aux l1 [] 
+;;
+
+(*non tail ricorsivo o iterativo*)
+let rec di l1 l2 = 
+	match l1 with
+		[] ->[]
+		|x::rest -> if List.mem x l2 
+							then di rest l2 
+							else x :: di rest l2
+;;
+
+subset non tail
+let rec su l1 l2= 
+	match l1 with
+		[]->true
+		|x::rest -> if List.mem x l2 
+						then	 true && su rest l2
+						else false
+;;
+
+tail:
+let sut l1 l2= 
+	let rec aux l1a bool =
+		match l1a with
+			[]->bool
+			|x::rest -> if List.mem x l2 
+							then	 true && aux rest bool
+							else false
+	in aux l1 true
+;;
+
+5 3
+let rec ex s = 
+	let max = String.length s 
+	in 
+	 let rec aux i ln = 
+		if i>=max then ln
+					else s.[i] :: aux (i+1) ln
+	 in aux 0 []
+;;
+
+let rec ex s = 
+	
+	 let rec aux i ln max = 
+		if i>=max then ln
+					else s.[i] :: aux (i+1) ln max
+	 in aux 0 [] (String.length s )
+;;
+
+let rec im = function
+	[] -> ""
+  | x::rest ->  (String.make 1 x)^ im rest
+;;
+
+(*tail*)
+let im l = 
+	let rec aux ln la  =
+		match la with
+			[] -> ln
+  		 | 	x::rest -> aux   (ln^ String.make 1 x) rest
+	in aux "" l
+;;
+
+ esercizio 5 4
+let  inp n = 
+	let rec aux i j ln =
+		if i<=n
+			then if j<n 
+					then aux (i) (j+1) ((i,j)::ln)
+					else aux (i+1) 1 ((i,j)::ln)
+			else List.rev ln
+	in aux 1 1 []
+;;
+
+let  inp n = 
+	let rec aux i j ln =
+		if i<=n
+			then if j<n 
+					then aux (i) (j+1) (ln@[(i,j)])
+					else aux (i+1) 1 (ln@[(i,j)])
+			else ln
+	in aux 1 1 []
+;;
+
+esercizio 5 5
+(*non tail*)
+let rec t = function			
+		x::y::z::rest-> (x,y,z) :: t (y::z::rest)
+		|_->[]
+;;
+
+(*tail recur*)
+let t l = 
+	let rec aux ln la =
+ 		 match la with
+			[]-> ln				
+			| [x] -> ln
+			| [x;y] -> List.rev ln
+			|x::y::z::rest-> aux ((x,y,z)::ln) (y::z::rest)
+	in aux [] l
+;;
+
+esercizio 5 6
+See Pdf answer
+
+esercizio 5 7
+ let sbi l1 l2 = 
+	let rec aux i la lb cont = 
+		if i = List.length l1
+		 then cont	
+		 else begin	
+				if ( List.nth la i = List.nth lb i) 
+					then aux (i+1) la lb (cont+1)
+					else aux (i+1) la lb cont
+			  end
+	in aux 0 l1 l2 0;;
+	
+	let sbd l1 l2 = 
+	let rec aux i la lb cont = 
+		if i = List.length l1
+		 then cont	
+		 else begin	
+				if not ( List.nth la i = List.nth lb i) 
+				   && List.mem (List.nth la i) lb
+					then aux (i+1) la lb (cont+1)
+					else aux (i+1) la lb cont
+			  end
+	in aux 0 l1 l2 0;;
+let  sb l1 l2 = (sbi l1 l2, sbd l1 l2);;
+
+esercizio 5 8 
+let rec partition lst pivot = match lst with
+  [] -> ([],[])
+| x::rest -> let (left,right) = partition rest pivot
+             in if x<=pivot then (x::left,right)
+                else (left,x::right)
+let rec i x = function
+	y::rest -> let  (left,right) = partition (y::rest) x
+				in left@x::right;;
+@
+@ primo si valuta left dopo right e dopo x::right
+@
+
+
+esercizio 6 1
+let rec find p  = function
+		[] ->	 failwith "error"
+		|x::rest-> if p x then x else find p rest
+;;
+find (function x -> x*x>40) [1;2;3;44] ;;
+
+esercizio 6 2
+let rec find p  = function
+		[] ->	 failwith "error"
+		|x::rest-> if p x then x else find p rest		
+		
+		
+let  takea p l= 
+			let rec aux p1 l1 l2 =	
+				match l1 with
+					[]-> List.rev l2
+				|	x::rest -> if p x then aux p1 rest (x::l2) else aux p1 rest l2
+			in aux p l []
+;;
+let rec takea2 p l= 
+				match l with
+					[]-> []
+				|	x::rest -> if p x then x::(takea2 p rest) else takea2 p rest 
+;;
+
+find (function x -> x*x>40) [1;2;3;44] ;;
+
+esercizio 6 3 
+let rec dp p = function
+		[]->[]	
+	|	x::rest-> if p x then dp p rest else x::rest
+;;
+
+
+let rec dropwhile p = function
+    [] -> []
+  | x::rest as lst ->
+      if p x then dropwhile p rest
+      else lst
+
+esercizio 6 4	
+pa (function n -> n mod 2 = 0) [0;2; 4;6;7;8;9;10];;
+let pa p l= 
+	let rec aux p s d r =
+	match r with
+		[]->(s,d)
+	|	x::rest -> if p x then aux p (x::s) d rest else aux p s (x::d)  rest 
+	in aux p [] [] l
+;;
+
+let rec pa p = 
+	function
+		[]->([],[])
+	|	x::rest -> let (s,d) = pa p rest
+			in  if p x then (x::s,d) else (s,x::d)
+;;
+
+esercizio 6 5 
+let pa x l = List.map (fun a-> (x,a)) l;;
+
+esercizio 6 6 
+let vm a l = List.exists ( List.for_all ( z-> z<a)) l;;
+ 
+esercizio 6 7 g
+let  sd l1 l2=  List.filter (fun y-> not (List.mem y l2)) l1 ;;
+
+esercizio 6 8 h
+let sus l1 l2 = List.for_all (fun x-> List.mem x l2) l1;;
+
+esercizio 6 9 i
+let ra l= List.map (fun x-> x*2) l;;
+
+esercizio 6 10 j
+let ma a l  = List.map (function (x,y) -> (x,a::y)) l;;
+ma 0 [('A',[1;2]);('B',[2;3]); ('c',[])];;
+
+esercizio 6 11 k
+falto
+let rec tl n x y = 
+		if n=0 then [[]]
+		else let rec f = tl (n-1) x y
+			 in 	List.map (fun z-> x::z) f @ List.map (fun z-> y::z) f
+;;
+
+esercizio 6 2 c
+falto usar list.for_all
+let rec tu (d,l) a =
+				if d=0 then (in_riga (d,l) (0) a)
+				else (in_riga (d,l) (d-1) a) && ( tu ((d-1),l) a)
+;;
+
+let rec tu13 (d,l) a =
+		let rec aux i= 
+				if i=0 then (in_riga (d,l) (0) a)
+				else (in_riga (d,l) (i) a) && ( aux (i-1))
+		in aux (d-1)
+;;
+
+esercizio 6 3a
+exception Nonesiste
+let fi x l = if not (List.exists (fun y->y=x) l) then raise Nonesiste
+			 else let rec aux (s,d) r= 
+						match r with
+							[]|[_]->(List.rev s,d)
+						|	y::rest -> if y = x then  aux (s,rest) []
+										else aux (y::s,d) rest
+					in aux ([],[]) l
+;;
+
+esercizio 6 3b
+ let spe x l = fi x (snd (fi x l));;
+
+esercizio 7 1
+let rec ese (x,y,dir) =
+	let rec aux (x1,y2,dir2) = function
+		[]->(x1,y2,dir2)
+	|	azione::rest-> match azione with	
+							Gira-> aux (sposta(x1,y2,dir2) Gira) rest
+				  		| 	Avanti n-> aux (sposta(x1,y2,dir2) (Avanti n)) rest
+	in aux (x,y,dir)
+;;
+
+let rec ese2 (x1,y2,dir2) = function
+		[]->(x1,y2,dir2)
+	|	a::rest-> match a with	
+							Gira-> ese2 (sposta(x1,y2,dir2) Gira) rest
+				  		| 	Avanti n-> ese2 (sposta(x1,y2,dir2) (Avanti n)) rest
+;;
+  ese (0,0,su) [Avanti 2; Gira; Gira; Gira; Avanti 3];;
+
+
+let rec ese44 pos = function
+		[]->pos
+	|	a::rest-> ese44 (sposta pos a) rest
+;;
+
+let  ese57 pos = 
+	let rec aux posn = function
+			[]->posn
+		|	a::rest-> aux (sposta posn a) rest
+	in aux pos 
+;;
+
+esercizio 7 2
+ mul (Succ(Succ(Zero))) (Succ(Succ(Zero))) ;;
+let rec mul n m = 
+	let rec aux i result=
+		if  i=m  then result
+		else aux (somma i (Succ(Zero))) (somma n n)
+	in aux Zero Zero
+;;
+
+esercizio 7 3 
+a
+type chiave = Aperta | Chiusa
+type cassaforte = chiave list
+
+let gp l = 
+	match l with
+		[]->[]
+	|	x::rest -> if x =Aperta then Chiusa::rest
+						  else Aperta::rest
+;;
+
+b
+let rec gpb l = 
+	match l with
+		[]|[_]->failwith "error"
+	|	x::y::rest -> if (x =Chiusa && y= Chiusa )then (Chiusa::Aperta::rest)
+						  else if (x =Chiusa && y= Aperta) then (Chiusa::Chiusa::rest)
+ 								else x::( gpb (y::rest))
+;;
+
+let rec gpb l = 
+	match l with
+		[]|[_]->failwith "error"
+	|	x::rest -> if (x =Chiusa ) then match rest with
+											[]->failwith "error"
+										| 	y::rest2-> if y=Aperta then Chiusa::Chiusa::rest2
+														else Chiusa::Aperta::rest2
+ 					else x::( gpb rest)
+;;
+
+c
+ let ss l = [gp l] @ [gpb l];;
+
+esericizio 7 4 ***duda
+let pasa l = 
+	let rec aux (m,c) resto=
+		match resto with
+			[]->	 (m >= c) || m=0  
+		|	x::rest-> if x= Miss then aux ((m+1),c) rest 
+						else aux (m,(c+1)) rest
+	in aux (0,0) l
+;;
+
+
+let safe (x,y) = pasa x && pasa y;;
+
+let rec pasa4 l =	
+	***como uso este resultado para hacer
+	(*let (a,b) = … in a>b *)
+			match l with
+			[]->	 (0,0)  
+		|	x::rest-> let (m,c) = pasa4 rest in
+						if x= Miss then ((m+1),c) 
+						else (m,(c+1)) 
+											
+;;
+ 
+let pasa4 l =
+  (* aux: obj list -> int * int
+     aux l = (m,c) dove m = numero di Miss in l
+                      e c = numero di Cann in l *)
+  let rec aux = function
+      [] -> (0,0)
+    | x::rest -> let (m,c) = aux rest
+						in if Miss=x then (m+1,c)
+							else if x=Cann then (m,c+1)
+						        else (m,c)
+  	in 
+    let (m,c) = aux l 
+	 in m=0 || m>=c
+
+;;
+
+esercizio 7 4 b
+let ebarca = (fun z->z=Barca) ;;
+let comprobare2 situazione = 
+	match situazione with
+		([],[])->failwith "listavuota" 
+	|	(x::rest as l1,(y::rest2 as l2)  )-> 
+		  if (List.exists ebarca l1) &&  (List.exists ebarca l2)  
+		  then failwith "essiste in tutti i due"  
+		  else not ((not (List.exists ebarca  l1)) && (not (List.exists ebarca l2))) 				 || failwith "non esiste Barca" 
+	|	(_ as l11,[]) -> List.exists ebarca l11 || failwith "non essiste Barca" 
+	|	([],(_ as l22)) -> List.exists ebarca l22 || failwith "non essist Barca" 
+;;
+
+let app  azione situazione  = comprobare2 situazione ; 
+	match situazione with
+		(l,r)->
+	match azione with 
+		From_left n -> ((snd (List.partition (ebarca) r)) @n,r@[Barca])
+	|	From_right n->  ( l@[Barca],(snd (List.partition (ebarca) r)) @n)
+;;
+
+let com ob l =  
+	List.exists (fun z-> [z]=ob ) l;;
+	let app  azione situazione  = comprobare2 situazione ; 
+	match situazione with
+		(l,r)->
+	match azione with 
+		From_left n -> if com n l then (snd (List.partition (fun z->[z]=n) (snd (List.partition ebarca l))),r@n@[Barca])
+						else failwith "no exxiste el elemento:"
+	|	From_right n->if com n r then ( l@n@[Barca], snd(List.partition (fun z->[z]=n)(snd (List.partition ebarca r))))
+						else failwith "no existe el elemento:"
+;;***errors
+
+c
+let applica act (left,right) =
+  let result = 
+    match act with
+      From_left lst ->
+	if List.length lst > 2 
+	then raise Impossible
+	else (togli_un Barca (togli left lst),
+	      Barca::lst @ right)
+    | From_right lst ->
+	if List.length lst > 2 
+	then raise Impossible
+	else (Barca::lst @ left,
+	      togli_un Barca (togli right lst))
+  in if safe result then result
+  else raise Impossible
+
+(* actions: azione list *)
+let actions =
+  let elems =
+    [[Miss];[Cann];[Miss;Cann];[Miss;Miss];[Cann;Cann]]
+  in (List.map (function x -> From_left x) elems)
+  @ (List.map (function x -> From_right x) elems)
+
+(* from_sit : situazione -> situazione list *)
+let from_sit sit =
+  let rec aux = function
+      [] -> []
+    | a::rest ->
+	try applica a sit :: aux rest
+	with Impossible -> aux rest
+  in aux actions
+*** ejemplo de captura de excepciones excepción
+
+8.11
+ let rec path p =   function   
+    Empty -> failwith "Errore"
+  | Tr (x,Empty,Empty) -> 
+      if p x then  failwith "Errore"
+      else [x]
+  | Tr(x,t1,t2) ->
+      if p x then  failwith "Errore"
+      else x::(try path p t1
+               with Failure "Errore" -> path p t2)
+;;
+
+
+let applica subst t =
+  let rec aux t = match t with
+      Empty -> Empty
+    | Tr(x,Empty,Empty) ->
+      begin
+      try List.assoc x subst
+      with Not_found -> t
+      end 
+    | Tr(x,sx,dx) -> Tr(x,aux sx,aux dx)
+   in aux t
+
+
+8 14 a let rec c x = function
+	[]->failwith "vuoto"
+  |	(y,z)::rest-> if List.mem x z then y else c x rest
+			;;
+
+10.1
+let rec e1 m1 m2 =
+	match m1 with
+		MultiInt x -> m1 = m2
+	|	MultiVar s -> m1 = m2
+	|	MultiDiv (x,y) -> e1 x m2 || e1 y m2
+	| 	MultiSum x -> 
+			let rec aux ls=	
+				match ls with 
+					[]->false
+				|	x::rest-> e1 x m2  || aux rest
+			in aux x
+ 	| _ ->false
+;;
+
+10.1a
+let rec e1 m1 m2 =
+	match m1 with
+		MultiInt x -> m1 = m2
+	|	MultiVar s -> m1 = m2
+	|	MultiDiv (x,y) -> e1 x m2 || e1 y m2
+	| 	MultiSum x -> List.exists (fun z -> e1 z m2) x
+ 	| _ ->false
+
+10.1b
+let rec e1b e1 str e2 = 
+	match e1 with 
+		MultiInt x -> MultiInt x
+	|	MultiVar s -> if MultiVar s = MultiVar str then e2 else MultiVar s
+	|	MultiDiff (x,y)-> MultiDiff ( (e1b x str e2), (e1b y str e2))  
+
+10.3
+let rec e3 lst = function
+	Ntree(x,[]) -> List.mem x lst
+  |	Ntree(x,y)-> cerca lst y 	
+and cerca lst  = function
+  |	[]-> true
+  |	z::rest-> e3 lst z && cerca lst rest
+;;
+
+10.4 
+let rec num = function
+	Ntree(x,[])->1
+  | Ntree(x,y)-> numlist y
+and numlist = function
+	[]->0
+  |	z::rest -> num z + numlist rest
+;;
+
+10.11
+let rec sam t1 t2 = 
+	match (t1,t2) with
+		(Ntree (_,[]),Ntree (_,[]))-> true
+	|	(Ntree (_,lt1),Ntree (_,lt2))-> otra (lt1,lt2) 
+and otra (lt1,lt2) = 
+	match (lt1,lt2) with
+		([],[])->true
+	|	(z::rest1,v::rest2)->sam z v && otra (rest1,rest2) 
+	| _->false
+;;
+
+11.3
+***porque tan compleja la respuesta de la prof
+exception Nfound
+let rec e3 g n = try
+	let rec aux lstn einicio =
+		match einicio with
+			[]->failwith "Not"
+		|	x::rest-> if List.mem x lstn then (x::lstn)
+						else aux (x::lstn) ((sucesivo x g) @ rest)
+	in aux [] [n]
+	with Failure "Not" -> raise Nfound
+;;
+
+11.6
+(*verifica che due liste hanno gli stessi elementi*)
+(*check : 'a list -> 'a list -> bool *)
+let check lc le = 
+  if List.length lc = List.length le then
+	let rec aux = function
+		[]->true
+  		|	(x::res1)->if List.mem x le then aux res1 else false 
+	in aux lc
+  else false;;
+(**altra forma:
+check : 'a list -> 'a list -> bool **)
+let check l1 l2 =	List.length l1 = List.length l2 &&
+					List.for_all (fun z -> List.mem z l2) l1 ;;
+
+(**Dato un grafo G, una lista L senza ripetizioni e due
+nodi n e m di G, riporti, se esiste, un cammino da n a m che passa
+per tutti gli elementi di L**)
+
+(*e6 : 'a * ('b * 'b) list -> 'b list -> 'b -> 'b -> 'b list*)
+exception Notfound
+let rec e6 g l n m= 
+ let ls =
+	let rec aux lstn =function 
+			[]->raise NotFound
+		|	x::rest-> if List.mem x lstn then aux lstn rest
+						else if x=m then (m::lstn)  else
+						 aux (x::lstn) ((successori2 x g) @ rest)
+	in aux [] [n]
+ in if check l ls then ls else raise NotFound
+;;
